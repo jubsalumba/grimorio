@@ -1,0 +1,1705 @@
+!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grimório Místico - Rede Social & Plataforma Esotérica</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Great+Vibes&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        mystic: {
+                            950: '#090412',
+                            900: '#120a21',
+                            800: '#1f1038',
+                            700: '#2d1b4e',
+                            600: '#4a2b7e',
+                            gold: '#d4af37',
+                            goldHover: '#f3e5ab',
+                            goldLight: '#fff2be',
+                            accent: '#a855f7',
+                            rose: '#e11d48'
+                        }
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        cinzelDeco: ['Cinzel Decorative', 'serif'],
+                        cursive: ['Great Vibes', 'cursive'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #090412;
+            color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar Styling */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #090412; }
+        ::-webkit-scrollbar-thumb { background: #2d1b4e; border-radius: 4px; border: 1px solid rgba(212, 175, 55, 0.3); }
+        ::-webkit-scrollbar-thumb:hover { background: #4a2b7e; }
+
+        .glass-panel {
+            background: rgba(18, 10, 33, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        .gold-border { border: 1px solid rgba(212, 175, 55, 0.35); }
+        .gold-glow { box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
+
+        /* Card Flip Effect */
+        .card-flip-container { perspective: 1000px; }
+        .card-flip-inner { transition: transform 0.8s; transform-style: preserve-3d; }
+        .card-flip-container.flipped .card-flip-inner { transform: rotateY(180deg); }
+        .card-front, .card-back { backface-visibility: hidden; position: absolute; inset: 0; }
+        .card-back { transform: rotateY(180deg); }
+
+        /* Chat Wallpaper Themes */
+        .chat-bg-stars { background: radial-gradient(circle at center, #1f1038 0%, #090412 100%), url('https://www.transparenttextures.com/patterns/stardust.png'); }
+        .chat-bg-forest { background: linear-gradient(rgba(9, 4, 18, 0.85), rgba(9, 4, 18, 0.85)), url('https://images.unsplash.com/photo-1511497584788-8767611136f6?w=800&auto=format&fit=crop&q=80') center/cover; }
+        .chat-bg-marble { background: linear-gradient(rgba(18, 10, 33, 0.85), rgba(18, 10, 33, 0.85)), url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800&auto=format&fit=crop&q=80') center/cover; }
+        .chat-bg-neon { background: radial-gradient(circle at top right, rgba(168, 85, 247, 0.2), transparent), radial-gradient(circle at bottom left, rgba(212, 175, 55, 0.2), #090412); }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-mystic-900 via-mystic-950 to-black text-gray-200">
+
+    <!-- TOP NAVBAR -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-mystic-gold/30 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 gap-2">
+
+                <!-- Left Brand & Sidebar Toggle -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="toggleSidebar()" class="p-2 text-mystic-gold hover:text-white rounded-lg hover:bg-mystic-800 transition md:hidden">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                    <div onclick="navigateTo('home')" class="cursor-pointer flex items-center space-x-2">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-mystic-gold via-purple-600 to-mystic-900 flex items-center justify-center shadow-lg border border-mystic-gold/60 gold-glow">
+                            <i class="fa-solid fa-eye text-mystic-950 text-lg"></i>
+                        </div>
+                        <span class="font-cinzelDeco font-bold text-base sm:text-xl text-transparent bg-clip-text bg-gradient-to-r from-mystic-gold via-amber-200 to-purple-300">
+                            Grimório Místico
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Global Live Search -->
+                <div class="relative flex-1 max-w-xs md:max-w-md mx-2">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-mystic-gold/70">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <input type="text" id="globalSearchInput" oninput="handleGlobalSearch(this.value)" placeholder="Buscar no Grimório..."
+                        class="w-full pl-9 pr-8 py-1.5 bg-mystic-950/90 text-xs sm:text-sm text-gray-200 rounded-full border border-mystic-gold/30 focus:outline-none focus:border-mystic-gold transition">
+                    <button onclick="clearSearch()" id="clearSearchBtn" class="hidden absolute right-3 top-2 text-gray-400 hover:text-white text-xs">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+
+                    <!-- Search Results Floating Box -->
+                    <div id="searchResultsBox" class="hidden absolute left-0 right-0 top-11 bg-mystic-900 border border-mystic-gold/40 rounded-2xl shadow-2xl p-3 z-50 max-h-80 overflow-y-auto space-y-2"></div>
+                </div>
+
+                <!-- Right Controls: Mood & User Profile -->
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <!-- Mood Dropdown -->
+                    <div class="relative">
+                        <button onclick="toggleMoodDropdown()" id="moodBtn" class="flex items-center space-x-1.5 bg-mystic-800/80 hover:bg-mystic-700 px-2.5 py-1.5 rounded-full border border-mystic-gold/30 text-xs text-mystic-gold transition">
+                            <span id="currentMoodEmoji">🔮</span>
+                            <span id="currentMoodText" class="hidden lg:inline font-medium">Inspirado</span>
+                        </button>
+                        <div id="moodDropdown" class="hidden absolute right-0 mt-2 w-48 bg-mystic-900 border border-mystic-gold/40 rounded-xl shadow-2xl p-2 z-50 text-xs space-y-1">
+                            <p class="text-[10px] text-gray-400 px-2 py-1 font-semibold border-b border-mystic-gold/10">Definir Mood do Dia:</p>
+                            <button onclick="setMood('🔮', 'Inspirado')" class="w-full text-left px-2 py-1.5 hover:bg-mystic-800 rounded flex items-center space-x-2"><span>🔮</span> <span>Inspirado</span></button>
+                            <button onclick="setMood('🌙', 'Reflexivo')" class="w-full text-left px-2 py-1.5 hover:bg-mystic-800 rounded flex items-center space-x-2"><span>🌙</span> <span>Reflexivo</span></button>
+                            <button onclick="setMood('✨', 'Místico')" class="w-full text-left px-2 py-1.5 hover:bg-mystic-800 rounded flex items-center space-x-2"><span>✨</span> <span>Místico</span></button>
+                            <button onclick="setMood('🌊', 'Calmo')" class="w-full text-left px-2 py-1.5 hover:bg-mystic-800 rounded flex items-center space-x-2"><span>🌊</span> <span>Calmo</span></button>
+                            <button onclick="setMood('⚡', 'Energizado')" class="w-full text-left px-2 py-1.5 hover:bg-mystic-800 rounded flex items-center space-x-2"><span>⚡</span> <span>Energizado</span></button>
+                        </div>
+                    </div>
+
+                    <!-- User Session UI -->
+                    <div id="authNavContainer" class="flex items-center space-x-2"></div>
+                </div>
+
+            </div>
+
+            <!-- Main Navigation Links -->
+            <nav class="flex items-center space-x-2 sm:space-x-6 overflow-x-auto py-2 text-xs sm:text-sm font-cinzel border-t border-mystic-gold/10 no-scrollbar">
+                <button onclick="navigateTo('home')" class="nav-btn text-gray-300 hover:text-mystic-gold px-2 py-1 rounded transition whitespace-nowrap" data-page="home"><i class="fa-solid fa-house mr-1"></i>Início</button>
+                <button onclick="navigateTo('feed')" class="nav-btn text-gray-300 hover:text-mystic-gold px-2 py-1 rounded transition whitespace-nowrap" data-page="feed"><i class="fa-solid fa-compass mr-1"></i>Feed Social</button>
+                <button onclick="navigateTo('blog')" class="nav-btn text-gray-300 hover:text-mystic-gold px-2 py-1 rounded transition whitespace-nowrap" data-page="blog"><i class="fa-solid fa-newspaper mr-1"></i>Blog</button>
+                <button onclick="navigateTo('servicos')" class="nav-btn text-gray-300 hover:text-mystic-gold px-2 py-1 rounded transition whitespace-nowrap" data-page="servicos"><i class="fa-solid fa-crown mr-1"></i>Serviços da Criadora</button>
+                <button onclick="navigateTo('sobre')" class="nav-btn text-gray-300 hover:text-mystic-gold px-2 py-1 rounded transition whitespace-nowrap" data-page="sobre"><i class="fa-solid fa-moon mr-1"></i>Sobre Nós</button>
+                <button onclick="navigateTo('contato')" class="nav-btn text-gray-300 hover:text-mystic-gold px-2 py-1 rounded transition whitespace-nowrap" data-page="contato"><i class="fa-solid fa-envelope mr-1"></i>Contato</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN APPLICATION CONTAINER -->
+    <div class="flex-1 flex max-w-7xl w-full mx-auto relative">
+
+        <!-- RESPONSIVE SIDEBAR -->
+        <aside id="sidebar" class="w-72 glass-panel border-r border-mystic-gold/20 flex-shrink-0 transition-all duration-300 z-30 fixed md:sticky top-28 h-[calc(100vh-7rem)] overflow-y-auto rounded-r-2xl shadow-2xl -translate-x-full md:translate-x-0">
+            <div class="p-4 space-y-5 text-xs sm:text-sm">
+
+                <div class="flex items-center justify-between pb-2 border-b border-mystic-gold/20">
+                    <h3 class="font-cinzel font-bold text-mystic-gold text-sm"><i class="fa-solid fa-bars-staggered mr-2"></i>Menu Pessoal</h3>
+                    <button onclick="toggleSidebar()" class="md:hidden text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <!-- Sidebar Dedicated Screens -->
+                <div class="space-y-2">
+                    <button onclick="navigateTo('cigano')" class="w-full text-left p-3 rounded-xl bg-mystic-900/70 hover:bg-mystic-800 border border-mystic-gold/20 hover:border-mystic-gold text-gray-200 hover:text-mystic-gold flex items-center justify-between transition">
+                        <span class="flex items-center"><i class="fa-solid fa-cards-blank text-mystic-gold mr-3"></i>Baralho Cigano</span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-mystic-gold"></i>
+                    </button>
+
+                    <button onclick="navigateTo('tarot')" class="w-full text-left p-3 rounded-xl bg-mystic-900/70 hover:bg-mystic-800 border border-mystic-gold/20 hover:border-mystic-gold text-gray-200 hover:text-mystic-gold flex items-center justify-between transition">
+                        <span class="flex items-center"><i class="fa-solid fa-wand-magic-sparkles text-mystic-gold mr-3"></i>Tarot</span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-mystic-gold"></i>
+                    </button>
+
+                    <button onclick="navigateTo('biblioteca')" class="w-full text-left p-3 rounded-xl bg-mystic-900/70 hover:bg-mystic-800 border border-mystic-gold/20 hover:border-mystic-gold text-gray-200 hover:text-mystic-gold flex items-center justify-between transition">
+                        <span class="flex items-center"><i class="fa-solid fa-book-bookmark text-mystic-gold mr-3"></i>Biblioteca Mística</span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-mystic-gold"></i>
+                    </button>
+
+                    <button onclick="navigateTo('diario')" class="w-full text-left p-3 rounded-xl bg-gradient-to-r from-purple-900/80 to-mystic-800 border border-mystic-gold/40 hover:border-mystic-gold text-mystic-gold font-bold flex items-center justify-between shadow-lg transition">
+                        <span class="flex items-center"><i class="fa-solid fa-feather-pointed text-lg mr-3"></i>Diário Místico</span>
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+
+                    <button onclick="navigateTo('mensagens')" class="w-full text-left p-3 rounded-xl bg-mystic-900/70 hover:bg-mystic-800 border border-mystic-gold/20 hover:border-mystic-gold text-gray-200 hover:text-mystic-gold flex items-center justify-between transition">
+                        <span class="flex items-center"><i class="fa-solid fa-comments text-mystic-gold mr-3"></i>Minhas Conversas</span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-mystic-gold"></i>
+                    </button>
+
+                    <button onclick="navigateTo('perfil')" class="w-full text-left p-3 rounded-xl bg-mystic-900/70 hover:bg-mystic-800 border border-mystic-gold/20 hover:border-mystic-gold text-gray-200 hover:text-mystic-gold flex items-center justify-between transition">
+                        <span class="flex items-center"><i class="fa-solid fa-user-gear text-mystic-gold mr-3"></i>Meu Perfil Completo</span>
+                        <i class="fa-solid fa-chevron-right text-[10px] text-mystic-gold"></i>
+                    </button>
+                </div>
+
+                <!-- Moon Phase Info Widget -->
+                <div class="p-3.5 bg-mystic-950/90 rounded-2xl border border-mystic-gold/20 text-center space-y-1">
+                    <p class="text-[11px] font-cinzel text-mystic-gold font-bold">Fase Lunar Atual</p>
+                    <div class="text-3xl">🌔</div>
+                    <p class="text-[11px] text-gray-300 font-semibold">Lua Crescente</p>
+                    <p class="text-[10px] text-purple-300 italic">Momento favorável para expansão e intuição.</p>
+                </div>
+
+            </div>
+        </aside>
+
+        <!-- MAIN SPA CONTENT AREA -->
+        <main class="flex-1 p-3 sm:p-6 overflow-y-auto max-w-full">
+
+            <!-- ================= PAGE 1: HOME ================= -->
+            <section id="page-home" class="space-y-8">
+                <!-- Hero Banner -->
+                <div class="relative rounded-3xl overflow-hidden glass-panel border border-mystic-gold/30 p-6 sm:p-12 text-center flex flex-col items-center justify-center space-y-6 shadow-2xl">
+                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/30 via-mystic-950/80 to-transparent pointer-events-none"></div>
+
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-mystic-gold via-purple-600 to-mystic-900 flex items-center justify-center shadow-2xl border-2 border-mystic-gold/80 animate-pulse">
+                        <i class="fa-solid fa-crystal-ball text-3xl sm:text-4xl text-mystic-950"></i>
+                    </div>
+
+                    <h1 class="font-cinzelDeco text-2xl sm:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-mystic-gold via-amber-200 to-purple-200 leading-tight">
+                        Bem-vindo ao Grimório Místico
+                    </h1>
+
+                    <p class="max-w-2xl text-gray-300 text-xs sm:text-base leading-relaxed font-light">
+                        Seu espaço sagrado para estudar Tarot, Baralho Cigano, manter um Diário Místico seguro, compartilhar leituras no Feed e conectar-se com outros oraculistas.
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center gap-4">
+                        <button onclick="navigateTo('feed')" class="px-8 py-3.5 rounded-full bg-gradient-to-r from-mystic-gold to-amber-600 hover:from-amber-400 hover:to-mystic-gold text-mystic-950 font-cinzel font-bold text-xs sm:text-sm tracking-widest shadow-lg shadow-mystic-gold/20 hover:scale-105 transition duration-300">
+                            <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Vamos Explorar
+                        </button>
+                        <button onclick="navigateTo('diario')" class="px-6 py-3.5 rounded-full bg-mystic-800 hover:bg-mystic-700 border border-mystic-gold/40 text-mystic-gold font-cinzel font-bold text-xs sm:text-sm tracking-widest transition">
+                            <i class="fa-solid fa-feather mr-2"></i>Abrir Meu Diário
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Interactive Card of the Day Widget -->
+                <div class="glass-panel p-6 rounded-2xl border border-mystic-gold/20 space-y-4">
+                    <div class="flex items-center justify-between border-b border-mystic-gold/20 pb-3">
+                        <h2 class="font-cinzel font-bold text-base sm:text-lg text-mystic-gold flex items-center"><i class="fa-solid fa-cards mr-2"></i>Tiragem da Carta do Dia</h2>
+                        <span class="text-xs text-purple-300">Sincronia Diária</span>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-6 py-2">
+                        <div id="cardOfDayContainer" onclick="revealCardOfDay()" class="card-flip-container w-36 h-56 sm:w-40 sm:h-64 cursor-pointer relative">
+                            <div class="card-flip-inner relative w-full h-full rounded-xl shadow-2xl">
+                                <!-- Card Back -->
+                                <div class="card-front bg-gradient-to-br from-mystic-800 to-mystic-950 border-2 border-mystic-gold rounded-xl flex flex-col items-center justify-center p-3 text-center">
+                                    <i class="fa-solid fa-om text-4xl text-mystic-gold opacity-80 mb-2"></i>
+                                    <span class="font-cinzel text-xs text-mystic-gold">Clique para Tirar</span>
+                                </div>
+                                <!-- Card Front -->
+                                <div class="card-back bg-mystic-900 border-2 border-mystic-gold rounded-xl flex flex-col items-center justify-center p-3 text-center space-y-1">
+                                    <div id="cardOfDayIcon" class="text-3xl text-mystic-gold">✨</div>
+                                    <h4 id="cardOfDayTitle" class="font-cinzel font-bold text-sm text-mystic-gold">O Sol</h4>
+                                    <p id="cardOfDayDesc" class="text-[11px] text-gray-300 leading-snug">Clareza, energia renovada e realizações no seu caminho.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="max-w-md text-center sm:text-left space-y-2">
+                            <h3 class="font-cinzel font-bold text-base text-amber-200">Conselho do Oráculo</h3>
+                            <p class="text-xs text-gray-300 leading-relaxed">Conecte-se com sua intenção interior e observe a mensagem refletida na carta de hoje para nortear suas escolhas.</p>
+                            <button onclick="revealCardOfDay()" class="mt-2 text-xs text-mystic-gold hover:underline font-semibold flex items-center justify-center sm:justify-start">
+                                <i class="fa-solid fa-rotate mr-1"></i>Tirar Outra Carta
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= PAGE 2: FEED SOCIAL & STORIES ================= -->
+            <section id="page-feed" class="hidden max-w-2xl mx-auto space-y-6">
+                <!-- Stories Carousel -->
+                <div class="glass-panel p-4 rounded-2xl border border-mystic-gold/20 overflow-x-auto">
+                    <div class="flex items-center space-x-4 min-w-max">
+                        <!-- Add Story Button -->
+                        <div onclick="openCreateStoryModal()" class="flex flex-col items-center space-y-1 cursor-pointer group">
+                            <div class="w-16 h-16 rounded-full bg-mystic-800 border-2 border-dashed border-mystic-gold flex items-center justify-center group-hover:scale-105 transition">
+                                <i class="fa-solid fa-plus text-mystic-gold text-lg"></i>
+                            </div>
+                            <span class="text-[11px] text-gray-300">Novo Story</span>
+                        </div>
+                        <!-- Stories List -->
+                        <div id="storiesListContainer" class="flex items-center space-x-4"></div>
+                    </div>
+                </div>
+
+                <!-- Create Post Box -->
+                <div class="glass-panel p-4 rounded-2xl border border-mystic-gold/20 space-y-3">
+                    <div class="flex items-start space-x-3">
+                        <img id="feedUserAvatar" src="" class="w-10 h-10 rounded-full object-cover border border-mystic-gold/40">
+                        <textarea id="postContentInput" rows="3" placeholder="O que as cartas ou intuições revelaram para você hoje? Compartilhe..."
+                            class="flex-1 bg-mystic-950/80 text-xs sm:text-sm text-gray-200 p-3 rounded-xl border border-mystic-gold/20 focus:outline-none focus:border-mystic-gold resize-none"></textarea>
+                    </div>
+
+                    <!-- Guardião Místico Moderator Warning -->
+                    <div id="postModeratorAlert" class="hidden p-2.5 bg-red-950/90 border border-red-500/50 rounded-xl text-xs text-red-200 flex items-center space-x-2">
+                        <i class="fa-solid fa-robot text-red-400 text-sm"></i>
+                        <span><strong>Guardião Místico AI:</strong> O texto contém palavras ofensivas/indevidas. Ajuste o conteúdo para publicar.</span>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2 border-t border-mystic-gold/10">
+                        <div class="flex items-center space-x-3 text-gray-400 text-xs">
+                            <button onclick="promptPostImage()" class="hover:text-mystic-gold transition flex items-center space-x-1">
+                                <i class="fa-solid fa-image text-purple-400 text-sm"></i>
+                                <span id="postImageBadge">Adicionar Imagem URL</span>
+                            </button>
+                        </div>
+
+                        <button onclick="publishFeedPost()" class="px-5 py-2 rounded-full bg-mystic-gold hover:bg-mystic-goldHover text-mystic-950 font-bold text-xs transition">
+                            <i class="fa-solid fa-paper-plane mr-1"></i>Publicar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Feed Posts Container -->
+                <div id="feedTimelineContainer" class="space-y-6"></div>
+            </section>
+
+            <!-- ================= PAGE 3: BLOG DA COMUNIDADE ================= -->
+            <section id="page-blog" class="hidden space-y-6">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 glass-panel p-6 rounded-2xl border border-mystic-gold/20">
+                    <div>
+                        <h2 class="font-cinzel font-bold text-2xl text-mystic-gold">Blog do Grimório</h2>
+                        <p class="text-xs text-gray-300 mt-1">Artigos profundos, estudos sobre tiragens, cristais e magia natural.</p>
+                    </div>
+                    <button onclick="openNewBlogModal()" class="px-4 py-2 bg-mystic-gold hover:bg-mystic-goldHover text-mystic-950 rounded-xl font-bold text-xs transition flex items-center">
+                        <i class="fa-solid fa-pen-nib mr-2"></i>Escrever Artigo
+                    </button>
+                </div>
+
+                <div id="blogArticlesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+            </section>
+
+            <!-- ================= PAGE 4: BARALHO CIGANO ================= -->
+            <section id="page-cigano" class="hidden space-y-6">
+                <div class="glass-panel p-6 rounded-2xl border border-mystic-gold/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="font-cinzel font-bold text-2xl text-mystic-gold flex items-center"><i class="fa-solid fa-cards-blank mr-3"></i>Estudos de Baralho Cigano (Lenormand)</h2>
+                        <p class="text-xs text-gray-300 mt-1">Gerencie seus decks pessoais, cursos concluídos e livros recomendados.</p>
+                    </div>
+                    <button onclick="openAddCiganoModal()" class="px-4 py-2 bg-mystic-gold text-mystic-950 font-bold rounded-xl text-xs hover:bg-mystic-goldHover transition">
+                        <i class="fa-solid fa-plus mr-1"></i>Adicionar Baralho / Curso / Livro
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="glass-panel p-5 rounded-2xl border border-mystic-gold/20 space-y-4">
+                        <h3 class="font-cinzel font-bold text-base text-mystic-gold border-b border-mystic-gold/10 pb-2"><i class="fa-solid fa-layer-group mr-2"></i>Meus Decks Ciganos</h3>
+                        <div id="ciganoDecksList" class="space-y-3"></div>
+                    </div>
+                    <div class="glass-panel p-5 rounded-2xl border border-mystic-gold/20 space-y-4">
+                        <h3 class="font-cinzel font-bold text-base text-mystic-gold border-b border-mystic-gold/10 pb-2"><i class="fa-solid fa-graduation-cap mr-2"></i>Cursos de Baralho Cigano</h3>
+                        <div id="ciganoCoursesList" class="space-y-3"></div>
+                    </div>
+                    <div class="glass-panel p-5 rounded-2xl border border-mystic-gold/20 space-y-4">
+                        <h3 class="font-cinzel font-bold text-base text-mystic-gold border-b border-mystic-gold/10 pb-2"><i class="fa-solid fa-book-bookmark mr-2"></i>Livros Recomendados</h3>
+                        <div id="ciganoBooksList" class="space-y-3"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= PAGE 5: TAROT ================= -->
+            <section id="page-tarot" class="hidden space-y-6">
+                <div class="glass-panel p-6 rounded-2xl border border-mystic-gold/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="font-cinzel font-bold text-2xl text-mystic-gold flex items-center"><i class="fa-solid fa-wand-magic-sparkles mr-3"></i>Estudos de Tarot</h2>
+                        <p class="text-xs text-gray-300 mt-1">Decks de Marseille, Rider-Waite, Thoth, cursos e referências literárias.</p>
+                    </div>
+                    <button onclick="openAddTarotModal()" class="px-4 py-2 bg-mystic-gold text-mystic-950 font-bold rounded-xl text-xs hover:bg-mystic-goldHover transition">
+                        <i class="fa-solid fa-plus mr-1"></i>Adicionar Item ao Tarot
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="glass-panel p-5 rounded-2xl border border-mystic-gold/20 space-y-4">
+                        <h3 class="font-cinzel font-bold text-base text-mystic-gold border-b border-mystic-gold/10 pb-2"><i class="fa-solid fa-cards mr-2"></i>Meus Decks de Tarot</h3>
+                        <div id="tarotDecksList" class="space-y-3"></div>
+                    </div>
+                    <div class="glass-panel p-5 rounded-2xl border border-mystic-gold/20 space-y-4">
+                        <h3 class="font-cinzel font-bold text-base text-mystic-gold border-b border-mystic-gold/10 pb-2"><i class="fa-solid fa-graduation-cap mr-2"></i>Cursos de Tarot</h3>
+                        <div id="tarotCoursesList" class="space-y-3"></div>
+                    </div>
+                    <div class="glass-panel p-5 rounded-2xl border border-mystic-gold/20 space-y-4">
+                        <h3 class="font-cinzel font-bold text-base text-mystic-gold border-b border-mystic-gold/10 pb-2"><i class="fa-solid fa-book-journal-whills mr-2"></i>Livros Recomendados</h3>
+                        <div id="tarotBooksList" class="space-y-3"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= PAGE 6: BIBLIOTECA MÍSTICA ================= -->
+            <section id="page-biblioteca" class="hidden space-y-6">
+                <div class="glass-panel p-6 rounded-2xl border border-mystic-gold/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="font-cinzel font-bold text-2xl text-mystic-gold">Biblioteca Mística Pessoal</h2>
+                        <p class="text-xs text-gray-300 mt-1">Sua coleção de acervo, livros, vídeos, cursos e PDFs favoritados.</p>
+                    </div>
+                    <button onclick="openAddLibraryModal()" class="px-4 py-2 bg-mystic-gold text-mystic-950 font-bold rounded-xl text-xs hover:bg-mystic-goldHover transition">
+                        <i class="fa-solid fa-plus mr-1"></i>Adicionar à Biblioteca
+                    </button>
+                </div>
+
+                <div id="libraryBooksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            </section>
+
+            <!-- ================= PAGE 7: DIÁRIO MÍSTICO ================= -->
+            <section id="page-diario" class="hidden space-y-6 max-w-4xl mx-auto">
+                <div class="glass-panel p-6 rounded-3xl border border-mystic-gold/30 shadow-2xl space-y-5">
+                    <div class="flex items-center justify-between border-b border-mystic-gold/20 pb-3">
+                        <h2 class="font-cinzel font-bold text-xl text-mystic-gold flex items-center"><i class="fa-solid fa-book-journal-whills mr-3"></i>Diário Místico Pessoal</h2>
+                        <span class="text-xs text-purple-300 font-mono"><i class="fa-solid fa-lock mr-1"></i>Privado</span>
+                    </div>
+
+                    <!-- Editor Formatting Toolbar -->
+                    <div class="flex flex-wrap items-center gap-2 p-2.5 bg-mystic-950/90 rounded-xl border border-mystic-gold/20 text-xs">
+                        <select id="diaryFontSelector" onchange="applyDiaryFont(this.value)" class="bg-mystic-900 border border-gray-700 rounded p-1 text-gray-200">
+                            <option value="font-sans">Fonte Clean</option>
+                            <option value="font-cinzel">Fonte Cinzel</option>
+                            <option value="font-cursive">Fonte Cursiva Mística</option>
+                            <option value="font-mono">Fonte Monospaced</option>
+                        </select>
+
+                        <select id="diarySizeSelector" onchange="applyDiarySize(this.value)" class="bg-mystic-900 border border-gray-700 rounded p-1 text-gray-200">
+                            <option value="text-xs">Texto Pequeno</option>
+                            <option value="text-sm" selected>Texto Médio</option>
+                            <option value="text-base">Texto Grande</option>
+                        </select>
+
+                        <div class="flex items-center space-x-1 pl-2 border-l border-gray-700">
+                            <span class="text-gray-400 text-[11px]">Símbolos:</span>
+                            <button onclick="insertDiarySymbol('🔮')" class="p-1 hover:bg-mystic-800 rounded">🔮</button>
+                            <button onclick="insertDiarySymbol('🌙')" class="p-1 hover:bg-mystic-800 rounded">🌙</button>
+                            <button onclick="insertDiarySymbol('✨')" class="p-1 hover:bg-mystic-800 rounded">✨</button>
+                            <button onclick="insertDiarySymbol('🎴')" class="p-1 hover:bg-mystic-800 rounded">🎴</button>
+                            <button onclick="insertDiarySymbol('⭐')" class="p-1 hover:bg-mystic-800 rounded">⭐</button>
+                        </div>
+                    </div>
+
+                    <input type="text" id="diaryTitleInput" placeholder="Título da Tiragem ou Reflexão..." class="w-full bg-mystic-950 text-mystic-gold font-bold p-3 rounded-xl border border-mystic-gold/20 focus:outline-none focus:border-mystic-gold text-sm">
+
+                    <input type="text" id="diaryMediaUrlInput" placeholder="URL da Foto/Vídeo (Opcional)" class="w-full bg-mystic-950 text-gray-300 p-2.5 rounded-xl border border-mystic-gold/20 focus:outline-none focus:border-mystic-gold text-xs">
+
+                    <textarea id="diaryBodyInput" rows="9" placeholder="Anote aqui suas leituras do dia, sonhos, intuições e ensinamentos oraculares..."
+                        class="w-full bg-mystic-950 text-gray-200 p-4 rounded-xl border border-mystic-gold/20 focus:outline-none focus:border-mystic-gold text-sm leading-relaxed resize-none"></textarea>
+
+                    <div class="flex items-center justify-between pt-2">
+                        <button onclick="saveDiaryEntry()" class="px-6 py-2.5 bg-mystic-gold hover:bg-mystic-goldHover text-mystic-950 font-bold rounded-xl text-xs transition flex items-center">
+                            <i class="fa-solid fa-floppy-disk mr-2"></i>Salvar Página no Diário
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Past Historical Entries Folder -->
+                <div class="glass-panel p-6 rounded-2xl border border-mystic-gold/20 space-y-4">
+                    <h3 class="font-cinzel font-bold text-base text-mystic-gold"><i class="fa-solid fa-folder-closed mr-2"></i>Histórico do Diário Místico</h3>
+                    <div id="savedDiaryEntriesContainer" class="space-y-3 max-h-96 overflow-y-auto pr-1"></div>
+                </div>
+            </section>
+
+            <!-- ================= PAGE 8: SERVIÇOS ================= -->
+            <section id="page-servicos" class="hidden space-y-8">
+                <!-- Creator Official Services -->
+                <div class="glass-panel p-6 rounded-3xl border border-mystic-gold/30 shadow-2xl space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 rounded-full bg-mystic-gold flex items-center justify-center text-mystic-950 font-bold text-xl">
+                            <i class="fa-solid fa-crown"></i>
+                        </div>
+                        <div>
+                            <h2 class="font-cinzel font-bold text-xl text-mystic-gold">Serviços Oficiais da Criadora</h2>
+                            <p class="text-xs text-gray-300">Atendimentos oraculares profissionais, mesa cigana e mentorias sob medida.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                        <div class="bg-mystic-950/80 p-4 rounded-2xl border border-mystic-gold/20 space-y-2 text-center flex flex-col justify-between">
+                            <div>
+                                <i class="fa-solid fa-cards text-2xl text-mystic-gold my-1"></i>
+                                <h4 class="font-cinzel font-bold text-sm text-gray-200">Mesa Cigana Completa</h4>
+                                <p class="text-[11px] text-gray-400 mt-1">Análise de todas as áreas da vida com as 36 cartas Lenormand.</p>
+                            </div>
+                            <button onclick="contactCreator('Mesa Cigana')" class="mt-3 w-full py-2 bg-mystic-gold text-mystic-950 font-bold text-xs rounded-xl hover:bg-mystic-goldHover transition">Agendar / Contato</button>
+                        </div>
+
+                        <div class="bg-mystic-950/80 p-4 rounded-2xl border border-mystic-gold/20 space-y-2 text-center flex flex-col justify-between">
+                            <div>
+                                <i class="fa-solid fa-sparkles text-2xl text-purple-400 my-1"></i>
+                                <h4 class="font-cinzel font-bold text-sm text-gray-200">Tiragem Anual de Tarot</h4>
+                                <p class="text-[11px] text-gray-400 mt-1">Mapeamento e orientações dos 12 meses futuros.</p>
+                            </div>
+                            <button onclick="contactCreator('Tiragem Anual')" class="mt-3 w-full py-2 bg-mystic-gold text-mystic-950 font-bold text-xs rounded-xl hover:bg-mystic-goldHover transition">Agendar / Contato</button>
+                        </div>
+
+                        <div class="bg-mystic-950/80 p-4 rounded-2xl border border-mystic-gold/20 space-y-2 text-center flex flex-col justify-between">
+                            <div>
+                                <i class="fa-solid fa-graduation-cap text-2xl text-amber-400 my-1"></i>
+                                <h4 class="font-cinzel font-bold text-sm text-gray-200">Mentoria Prática</h4>
+                                <p class="text-[11px] text-gray-400 mt-1">Supervisão de leituras para estudantes de oráculos.</p>
+                            </div>
+                            <button onclick="contactCreator('Mentoria')" class="mt-3 w-full py-2 bg-mystic-gold text-mystic-950 font-bold text-xs rounded-xl hover:bg-mystic-goldHover transition">Agendar / Contato</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Services Grid -->
+                <div class="glass-panel p-6 rounded-2xl border border-mystic-gold/20 space-y-4">
+                    <div class="flex items-center justify-between border-b border-mystic-gold/20 pb-3">
+                        <h3 class="font-cinzel font-bold text-lg text-mystic-gold"><i class="fa-solid fa-users mr-2"></i>Serviços da Comunidade</h3>
+                        <p class="text-xs text-gray-400">Atendimentos divulgados pelos membros</p>
+                    </div>
+
+                    <div id="communityServicesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                </div>
+            </section>
+
+            <!-- ================= PAGE 9: MENSAGENS INDIVIDUAIS (CHAT) ================= -->
+            <section id="page-mensagens" class="hidden">
+                <div class="glass-panel border border-mystic-gold/20 rounded-2xl overflow-hidden h-[calc(100vh-10rem)] flex flex-col md:flex-row">
+                    <!-- Contacts List Sidebar -->
+                    <div class="w-full md:w-80 border-b md:border-b-0 md:border-r border-mystic-gold/20 flex flex-col bg-mystic-950/90">
+                        <div class="p-3 border-b border-mystic-gold/20 flex items-center justify-between">
+                            <h3 class="font-cinzel font-bold text-xs text-mystic-gold"><i class="fa-solid fa-comments mr-2"></i>Contatos da Comunidade</h3>
+                        </div>
+                        <div id="chatContactsContainer" class="flex-1 overflow-y-auto divide-y divide-mystic-gold/10"></div>
+                    </div>
+
+                    <!-- Chat Active Window -->
+                    <div class="flex-1 flex flex-col bg-mystic-950 relative">
+                        <!-- Chat Header -->
+                        <div class="p-3 glass-panel border-b border-mystic-gold/20 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <img id="chatActiveAvatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80" class="w-9 h-9 rounded-full object-cover border border-mystic-gold/40">
+                                <div>
+                                    <h4 id="chatActiveName" class="font-bold text-xs text-gray-200">Criadora do Grimório</h4>
+                                    <p id="chatActiveStatus" class="text-[10px] text-green-400">Online</p>
+                                </div>
+                            </div>
+
+                            <!-- Chat Settings Controls -->
+                            <div class="flex items-center space-x-2 text-xs">
+                                <select id="chatThemeSelector" onchange="changeChatTheme(this.value)" class="bg-mystic-900 border border-mystic-gold/30 rounded p-1 text-gray-300 text-[11px]">
+                                    <option value="chat-bg-stars">Tema: Estrelado</option>
+                                    <option value="chat-bg-forest">Tema: Floresta</option>
+                                    <option value="chat-bg-marble">Tema: Mármore</option>
+                                    <option value="chat-bg-neon">Tema: Neon</option>
+                                </select>
+                                <button onclick="renameActiveContact()" class="p-1.5 text-mystic-gold hover:text-white" title="Renomear Apelido"><i class="fa-solid fa-pen"></i></button>
+                                <button onclick="clearActiveConversation()" class="p-1.5 text-gray-400 hover:text-red-400" title="Apagar Conversa"><i class="fa-solid fa-trash-can"></i></button>
+                                <button onclick="toggleBlockContact()" id="blockContactBtn" class="p-1.5 text-red-400 hover:text-red-300" title="Bloquear Contato"><i class="fa-solid fa-ban"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Messages Content Box -->
+                        <div id="chatMessagesBox" class="flex-1 p-4 overflow-y-auto space-y-3 chat-bg-stars"></div>
+
+                        <!-- Chat Input Bar -->
+                        <div class="p-3 border-t border-mystic-gold/20 glass-panel flex items-center space-x-2">
+                            <input type="text" id="chatInputText" onkeypress="if(event.key==='Enter') sendChatMessage()" placeholder="Digite sua mensagem mística..."
+                                class="flex-1 bg-mystic-900 text-xs sm:text-sm text-gray-200 px-4 py-2 rounded-full border border-mystic-gold/30 focus:outline-none focus:border-mystic-gold">
+                            <button onclick="sendChatMessage()" class="w-9 h-9 rounded-full bg-mystic-gold hover:bg-mystic-goldHover text-mystic-950 flex items-center justify-center transition">
+                                <i class="fa-solid fa-paper-plane text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= PAGE 10: SOBRE NÓS ================= -->
+            <section id="page-sobre" class="hidden glass-panel p-6 sm:p-8 rounded-2xl border border-mystic-gold/20 space-y-4">
+                <h2 class="font-cinzel font-bold text-2xl text-mystic-gold border-b border-mystic-gold/20 pb-2">Sobre o Grimório Místico</h2>
+                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                    O <strong>Grimório Místico</strong> foi desenvolvido como um santuário digital para conectarmos praticantes de Tarot, Baralho Cigano e estudos esotéricos. Nosso propósito é integrar estudo estruturado, registro seguro de intuições e convivência fraterna na comunidade oracular.
+                </p>
+            </section>
+
+            <!-- ================= PAGE 11: CONTATO ================= -->
+            <section id="page-contato" class="hidden glass-panel p-6 sm:p-8 rounded-2xl border border-mystic-gold/20 max-w-xl mx-auto space-y-4">
+                <h2 class="font-cinzel font-bold text-2xl text-mystic-gold text-center">Fale Conosco</h2>
+                <form onsubmit="event.preventDefault(); alert('Sua mensagem foi enviada à Criadora!');" class="space-y-3 text-xs">
+                    <div>
+                        <label class="block text-gray-300 mb-1">Seu Nome</label>
+                        <input type="text" required class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2.5 text-gray-200">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-1">Seu E-mail</label>
+                        <input type="email" required class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2.5 text-gray-200">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-1">Mensagem</label>
+                        <textarea rows="4" required class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2.5 text-gray-200 resize-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-2.5 bg-mystic-gold text-mystic-950 font-bold rounded-xl hover:bg-mystic-goldHover transition">Enviar Mensagem</button>
+                </form>
+            </section>
+
+            <!-- ================= PAGE 12: MEU PERFIL COMPLETO ================= -->
+            <section id="page-perfil" class="hidden space-y-6">
+                <!-- Profile Header Banner -->
+                <div class="glass-panel rounded-3xl overflow-hidden border border-mystic-gold/30 shadow-2xl relative">
+                    <div id="profileBannerDisplay" class="h-40 sm:h-52 bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&auto=format&fit=crop&q=80')">
+                        <div class="absolute inset-0 bg-gradient-to-t from-mystic-950 via-transparent to-transparent"></div>
+                    </div>
+
+                    <div class="p-6 pt-0 relative flex flex-col sm:flex-row sm:items-end justify-between gap-4 -mt-14">
+                        <div class="flex flex-col sm:flex-row items-center sm:items-end space-y-3 sm:space-y-0 sm:space-x-4 text-center sm:text-left">
+                            <img id="profileAvatarDisplay" src="" class="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-mystic-950 shadow-2xl">
+                            <div class="space-y-1">
+                                <h2 id="profileNameDisplay" class="font-cinzel font-bold text-xl sm:text-2xl text-mystic-gold">Nome</h2>
+                                <p id="profileHandleDisplay" class="text-xs text-purple-300 font-mono">@handle</p>
+                                <p id="profileBioDisplay" class="text-xs text-gray-300 max-w-md">Bio do usuário...</p>
+                            </div>
+                        </div>
+
+                        <button onclick="openEditProfileModal()" class="px-4 py-2 rounded-full bg-mystic-800 hover:bg-mystic-700 border border-mystic-gold/40 text-xs font-bold text-mystic-gold transition">
+                            <i class="fa-solid fa-pen-to-square mr-1"></i>Editar Perfil Completo
+                        </button>
+                    </div>
+
+                    <!-- Profile Preferences Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-6 border-t border-mystic-gold/10 text-xs bg-mystic-950/60">
+                        <div>
+                            <span class="text-mystic-gold font-bold block mb-1"><i class="fa-solid fa-film mr-1"></i>Filmes Favoritos:</span>
+                            <span id="profileMoviesDisplay" class="text-gray-300">Não informado</span>
+                        </div>
+                        <div>
+                            <span class="text-mystic-gold font-bold block mb-1"><i class="fa-solid fa-tv mr-1"></i>Séries Favoritas:</span>
+                            <span id="profileSeriesDisplay" class="text-gray-300">Não informado</span>
+                        </div>
+                        <div>
+                            <span class="text-mystic-gold font-bold block mb-1"><i class="fa-solid fa-mobile-screen mr-1"></i>Apps Favoritos:</span>
+                            <span id="profileAppsDisplay" class="text-gray-300">Não informado</span>
+                        </div>
+                    </div>
+
+                    <!-- Profile Internal Tabs Bar -->
+                    <div class="flex items-center space-x-2 border-t border-mystic-gold/10 px-6 py-2 overflow-x-auto text-xs font-cinzel">
+                        <button onclick="switchProfileTab('posts')" id="pTabBtn-posts" class="px-3 py-1.5 rounded-lg bg-mystic-gold text-mystic-950 font-bold">Meus Posts</button>
+                        <button onclick="switchProfileTab('servicos')" id="pTabBtn-servicos" class="px-3 py-1.5 rounded-lg text-gray-300 hover:text-mystic-gold">Meus Serviços</button>
+                        <button onclick="switchProfileTab('favoritos')" id="pTabBtn-favoritos" class="px-3 py-1.5 rounded-lg text-gray-300 hover:text-mystic-gold">Meus Favoritos</button>
+                    </div>
+                </div>
+
+                <!-- Profile Tab Contents -->
+                <div id="pTab-posts" class="space-y-4">
+                    <div id="userProfilePostsContainer" class="space-y-4"></div>
+                </div>
+
+                <div id="pTab-servicos" class="hidden space-y-4">
+                    <div class="glass-panel p-5 rounded-2xl border border-mystic-gold/20 space-y-3">
+                        <h3 class="font-cinzel font-bold text-sm text-mystic-gold">Cadastrar Novo Serviço Pessoal</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                            <input type="text" id="userServiceTitleInput" placeholder="Título do Serviço (ex: Tiragem de Runas)" class="bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2.5 text-gray-200">
+                            <input type="text" id="userServicePriceInput" placeholder="Valor ou Contato (ex: R$ 60 / hora)" class="bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2.5 text-gray-200">
+                            <textarea id="userServiceDescInput" placeholder="Descrição do atendimento..." class="sm:col-span-2 bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2.5 text-gray-200 resize-none" rows="2"></textarea>
+                        </div>
+                        <button onclick="addUserService()" class="px-4 py-2 bg-mystic-gold text-mystic-950 font-bold rounded-xl text-xs hover:bg-mystic-goldHover transition">Publicar Serviço</button>
+                    </div>
+
+                    <div id="userOwnedServicesContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                </div>
+
+                <div id="pTab-favoritos" class="hidden glass-panel p-5 rounded-2xl border border-mystic-gold/20 space-y-3">
+                    <h3 class="font-cinzel font-bold text-sm text-mystic-gold">Seus Itens Favoritados</h3>
+                    <div id="userFavoritesContainer" class="space-y-2 text-xs text-gray-300"></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ================= MODAL: AUTHENTICATION ================= -->
+    <div id="authModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-md rounded-3xl border border-mystic-gold/40 shadow-2xl p-6 space-y-5">
+            <div class="flex items-center justify-between border-b border-mystic-gold/20 pb-3">
+                <h3 id="authModalTitle" class="font-cinzel font-bold text-lg text-mystic-gold">Entrar no Grimório</h3>
+                <button onclick="closeAuthModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="authLoginForm" onsubmit="handleLoginSubmit(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block text-gray-300 mb-1">E-mail ou Usuário</label>
+                    <input type="text" id="loginEmail" required class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2.5 text-gray-200 focus:outline-none focus:border-mystic-gold">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Senha</label>
+                    <input type="password" id="loginPassword" required class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2.5 text-gray-200 focus:outline-none focus:border-mystic-gold">
+                </div>
+                <div class="flex justify-between items-center text-[11px]">
+                    <button type="button" onclick="switchAuthMode('forgot')" class="text-mystic-gold hover:underline">Esqueceu a senha?</button>
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-mystic-gold text-mystic-950 font-bold rounded-xl hover:bg-mystic-goldHover transition">Entrar</button>
+                <p class="text-center text-gray-400 text-[11px]">Ainda não tem conta? <button type="button" onclick="switchAuthMode('register')" class="text-mystic-gold font-bold hover:underline">Cadastre-se</button></p>
+            </form>
+
+            <!-- Register Form -->
+            <form id="authRegisterForm" onsubmit="handleRegisterSubmit(event)" class="hidden space-y-3 text-xs">
+                <div>
+                    <label class="block text-gray-300 mb-1">Nome Completo</label>
+                    <input type="text" id="regName" required class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Nome de Usuário (@handle)</label>
+                    <input type="text" id="regHandle" required placeholder="seunome" class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">E-mail</label>
+                    <input type="email" id="regEmail" required class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Senha</label>
+                    <input type="password" id="regPassword" required minlength="4" class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Pergunta Secreta (para recuperação)</label>
+                    <input type="text" id="regQuestion" placeholder="Ex: Nome do meu primeiro animal" required class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Resposta Secreta</label>
+                    <input type="text" id="regAnswer" required class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-mystic-gold text-mystic-950 font-bold rounded-xl hover:bg-mystic-goldHover transition">Criar Minha Conta</button>
+                <p class="text-center text-gray-400 text-[11px]">Já tem conta? <button type="button" onclick="switchAuthMode('login')" class="text-mystic-gold font-bold hover:underline">Entrar</button></p>
+            </form>
+
+            <!-- Password Recovery Form -->
+            <form id="authForgotForm" onsubmit="handleForgotSubmit(event)" class="hidden space-y-3 text-xs">
+                <div>
+                    <label class="block text-gray-300 mb-1">Digite seu Usuário ou E-mail</label>
+                    <input type="text" id="forgotIdentifier" required class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+                </div>
+                <button type="button" onclick="checkSecurityQuestion()" class="w-full py-1.5 bg-mystic-800 text-mystic-gold font-bold rounded-xl hover:bg-mystic-700">Verificar Pergunta Secreta</button>
+
+                <div id="forgotQuestionBox" class="hidden space-y-2 pt-2 border-t border-mystic-gold/20">
+                    <p id="forgotQuestionText" class="text-mystic-gold font-semibold"></p>
+                    <input type="text" id="forgotAnswerInput" placeholder="Sua Resposta" class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+                    <input type="password" id="forgotNewPassword" placeholder="Nova Senha" class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+                    <button type="submit" class="w-full py-2 bg-mystic-gold text-mystic-950 font-bold rounded-xl">Redefinir Senha</button>
+                </div>
+                <p class="text-center pt-2"><button type="button" onclick="switchAuthMode('login')" class="text-mystic-gold text-[11px]">Voltar ao Login</button></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= MODAL: EDIT USER PROFILE ================= -->
+    <div id="editProfileModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-md rounded-3xl border border-mystic-gold/40 p-6 space-y-4 max-h-[90vh] overflow-y-auto text-xs">
+            <div class="flex items-center justify-between border-b border-mystic-gold/20 pb-2">
+                <h3 class="font-cinzel font-bold text-base text-mystic-gold">Editar Perfil Místico</h3>
+                <button onclick="closeEditProfileModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-gray-300 mb-1">Nome Exibido</label>
+                    <input type="text" id="editProfileName" class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">URL Foto de Perfil</label>
+                    <input type="text" id="editProfileAvatar" class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">URL Banner de Capa</label>
+                    <input type="text" id="editProfileBanner" class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Biografia / Mantra</label>
+                    <textarea id="editProfileBio" rows="2" class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200 resize-none"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Filmes Favoritos</label>
+                    <input type="text" id="editProfileMovies" class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Séries Favoritas</label>
+                    <input type="text" id="editProfileSeries" class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Apps Mais Utilizados</label>
+                    <input type="text" id="editProfileApps" class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+                </div>
+                <button onclick="saveUserProfileData()" class="w-full py-2.5 bg-mystic-gold text-mystic-950 font-bold rounded-xl hover:bg-mystic-goldHover transition">Salvar Alterações</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL: ADD STORY ================= -->
+    <div id="createStoryModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-sm rounded-3xl border border-mystic-gold/40 p-5 space-y-4 text-xs">
+            <div class="flex items-center justify-between border-b border-mystic-gold/20 pb-2">
+                <h3 class="font-cinzel font-bold text-sm text-mystic-gold">Criar Story</h3>
+                <button onclick="closeCreateStoryModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div>
+                <label class="block text-gray-300 mb-1">Texto do Story</label>
+                <input type="text" id="storyTextInput" placeholder="Minha tiragem rápida..." class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+            </div>
+            <div>
+                <label class="block text-gray-300 mb-1">URL Imagem Fundo (Opcional)</label>
+                <input type="text" id="storyImageUrlInput" placeholder="https://..." class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+            </div>
+            <button onclick="publishStory()" class="w-full py-2 bg-mystic-gold text-mystic-950 font-bold rounded-xl">Publicar Story</button>
+        </div>
+    </div>
+
+    <!-- ================= MODAL: ADD/EDIT ITEM (CIGANO / TAROT / LIBRARY) ================= -->
+    <div id="itemCrudModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-md rounded-3xl border border-mystic-gold/40 p-6 space-y-4 text-xs">
+            <div class="flex items-center justify-between border-b border-mystic-gold/20 pb-2">
+                <h3 id="itemCrudTitle" class="font-cinzel font-bold text-sm text-mystic-gold">Adicionar Registro</h3>
+                <button onclick="closeItemCrudModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <input type="hidden" id="itemCrudType">
+            <div>
+                <label class="block text-gray-300 mb-1">Título / Nome</label>
+                <input type="text" id="itemCrudName" class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+            </div>
+            <div>
+                <label class="block text-gray-300 mb-1">Autor / Instrutor / Detalhes</label>
+                <input type="text" id="itemCrudSubtitle" class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200">
+            </div>
+            <div>
+                <label class="block text-gray-300 mb-1">Descrição / Anotações</label>
+                <textarea id="itemCrudDesc" rows="3" class="w-full bg-mystic-950 border border-mystic-gold/30 rounded-xl p-2 text-gray-200 resize-none"></textarea>
+            </div>
+            <button onclick="saveItemCrud()" class="w-full py-2.5 bg-mystic-gold text-mystic-950 font-bold rounded-xl">Salvar Registro</button>
+        </div>
+    </div>
+
+    <script>
+        /* ================= BANNED TERMS FOR MODERATOR ================= */
+        const BANNED_TERMS = ['palavrão', 'ofensa', 'violencia', 'violência', 'fraude', 'golpe', 'odio', 'ódio'];
+
+        /* ================= DEFAULT MOCK DATA ENGINE ================= */
+        const DEFAULT_CREATOR = {
+            id: 'creator_master',
+            name: 'Criadora do Grimório',
+            handle: '@místico_master',
+            email: 'criadora@grimorio.com',
+            password: '123',
+            avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&auto=format&fit=crop&q=80',
+            banner: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&auto=format&fit=crop&q=80',
+            bio: 'Fundadora e cartomante oficial do Grimório Místico. Especialista em Baralho Cigano e Tarot.',
+            movies: 'O Labirinto do Fauno, Harry Potter, As Brumas de Avalon',
+            series: 'Sempre Bruxa, A Feiticeira, Wandinha',
+            apps: 'Grimório Místico, WhatsApp, Instagram',
+            question: 'Qual o nome do primeiro oráculo?',
+            answer: 'Tarot'
+        };
+
+        /* ================= LOCAL STORAGE INITIALIZATION ================= */
+        function loadDB(key, fallback) {
+            const data = localStorage.getItem('grimorio_' + key);
+            return data ? JSON.parse(data) : fallback;
+        }
+
+        function saveDB(key, data) {
+            localStorage.setItem('grimorio_' + key, JSON.stringify(data));
+        }
+
+        let usersDB = loadDB('users', [DEFAULT_CREATOR]);
+        let currentUser = loadDB('session', DEFAULT_CREATOR);
+        let postsDB = loadDB('posts', [
+            {
+                id: 'post_1',
+                authorId: 'creator_master',
+                authorName: 'Criadora do Grimório',
+                authorHandle: '@místico_master',
+                authorAvatar: DEFAULT_CREATOR.avatar,
+                content: 'Sejam bem-vindos ao novo Grimório Místico! Compartilhem suas tiragens diárias, livros e dúvidas.',
+                image: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&auto=format&fit=crop&q=80',
+                likes: ['creator_master'],
+                comments: [{ id: 'c1', authorName: 'Cartomante Luna', text: 'Maravilhoso espaço sagrado!' }]
+            }
+        ]);
+
+        let storiesDB = loadDB('stories', [
+            { id: 's1', authorName: 'Criadora', avatar: DEFAULT_CREATOR.avatar, text: 'Conselho do Sol ativado!', bg: '' }
+        ]);
+
+        let blogDB = loadDB('blog', [
+            {
+                id: 'b1',
+                authorId: 'creator_master',
+                authorName: 'Criadora do Grimório',
+                title: 'O Poder da Carta do Sol no Baralho Cigano',
+                summary: 'Entenda como o Sol aquece e ilumina as combinações oraculares em momentos de incerteza.',
+                content: 'O Sol representa a vitória total, clareza absoluta e realizações...'
+            }
+        ]);
+
+        let ciganoDB = loadDB('cigano', [
+            { id: 'cg1', userId: 'creator_master', type: 'deck', name: 'Baralho Cigano Místico', subtitle: '36 Cartas Ilustradas', desc: 'Deck principal de atendimento.' },
+            { id: 'cg2', userId: 'creator_master', type: 'course', name: 'Mesa Real de Lenormand', subtitle: 'Certificado Avançado', desc: 'Técnica de leitura de 36 casas.' },
+            { id: 'cg3', userId: 'creator_master', type: 'book', name: 'Segredos do Baralho Cigano', subtitle: 'Rana George', desc: 'Guia definitivo de significados.' }
+        ]);
+
+        let tarotDB = loadDB('tarot', [
+            { id: 'tr1', userId: 'creator_master', type: 'deck', name: 'Rider-Waite Smith', subtitle: 'Arcanos Maiores e Menores', desc: 'Ideal para estudos e previsões profundas.' }
+        ]);
+
+        let libraryDB = loadDB('library', [
+            { id: 'lb1', userId: 'creator_master', title: 'O Caminho do Tarot', author: 'Alejandro Jodorowsky', desc: 'Análise simbólica e psíquica dos arcanos.' }
+        ]);
+
+        let diaryDB = loadDB('diary', []);
+        let servicesDB = loadDB('services', []);
+        let favoritesDB = loadDB('favorites', []);
+        let chatsDB = loadDB('chats', {});
+
+        /* ================= AUTHENTICATION & SESSION ENGINE ================= */
+        function updateSessionUI() {
+            const container = document.getElementById('authNavContainer');
+            if (currentUser) {
+                container.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <button onclick="navigateTo('perfil')" class="flex items-center space-x-2 p-1 rounded-full border border-mystic-gold/40 hover:border-mystic-gold transition">
+                            <img src="${currentUser.avatar || DEFAULT_CREATOR.avatar}" class="w-8 h-8 rounded-full object-cover">
+                            <span class="text-xs text-mystic-gold font-bold hidden sm:inline">${currentUser.name}</span>
+                        </button>
+                        <button onclick="handleLogout()" class="p-1.5 text-xs text-gray-400 hover:text-red-400 transition" title="Sair / Logout">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </div>
+                `;
+                document.getElementById('feedUserAvatar').src = currentUser.avatar || DEFAULT_CREATOR.avatar;
+                renderUserProfile();
+            } else {
+                container.innerHTML = `
+                    <button onclick="openAuthModal('login')" class="px-4 py-1.5 rounded-full bg-mystic-gold hover:bg-mystic-goldHover text-mystic-950 font-semibold text-xs transition">
+                        <i class="fa-solid fa-right-to-bracket mr-1"></i>Entrar / Cadastrar
+                    </button>
+                `;
+            }
+        }
+
+        function handleLogout() {
+            if (confirm("Deseja sair da sua conta?")) {
+                currentUser = null;
+                saveDB('session', null);
+                updateSessionUI();
+                navigateTo('home');
+            }
+        }
+
+        function openAuthModal(mode) {
+            document.getElementById('authModal').classList.remove('hidden');
+            switchAuthMode(mode);
+        }
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.add('hidden');
+        }
+
+        function switchAuthMode(mode) {
+            document.getElementById('authLoginForm').classList.add('hidden');
+            document.getElementById('authRegisterForm').classList.add('hidden');
+            document.getElementById('authForgotForm').classList.add('hidden');
+
+            if (mode === 'login') document.getElementById('authLoginForm').classList.remove('hidden');
+            else if (mode === 'register') document.getElementById('authRegisterForm').classList.remove('hidden');
+            else if (mode === 'forgot') document.getElementById('authForgotForm').classList.remove('hidden');
+        }
+
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            const identifier = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            const found = usersDB.find(u => (u.email === identifier || u.handle === identifier || u.handle === '@' + identifier) && u.password === password);
+            if (found) {
+                currentUser = found;
+                saveDB('session', currentUser);
+                updateSessionUI();
+                closeAuthModal();
+                alert(`Bem-vindo(a) de volta, ${found.name}!`);
+            } else {
+                alert("Usuário ou senha incorretos!");
+            }
+        }
+
+        function handleRegisterSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value.trim();
+            let handle = document.getElementById('regHandle').value.trim();
+            if (!handle.startsWith('@')) handle = '@' + handle;
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+            const question = document.getElementById('regQuestion').value.trim();
+            const answer = document.getElementById('regAnswer').value.trim();
+
+            if (usersDB.some(u => u.email === email || u.handle === handle)) {
+                return alert("E-mail ou nome de usuário já cadastrado!");
+            }
+
+            const newUser = {
+                id: 'usr_' + Date.now(),
+                name, handle, email, password, question, answer,
+                avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80',
+                banner: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&auto=format&fit=crop&q=80',
+                bio: 'Estudante e leitor oracular no Grimório Místico.',
+                movies: 'Não informado', series: 'Não informado', apps: 'Não informado'
+            };
+
+            usersDB.push(newUser);
+            saveDB('users', usersDB);
+            currentUser = newUser;
+            saveDB('session', currentUser);
+            updateSessionUI();
+            closeAuthModal();
+            alert("Conta criada com sucesso!");
+        }
+
+        let recoveryUserFound = null;
+        function checkSecurityQuestion() {
+            const id = document.getElementById('forgotIdentifier').value.trim();
+            recoveryUserFound = usersDB.find(u => u.email === id || u.handle === id || u.handle === '@' + id);
+
+            if (recoveryUserFound && recoveryUserFound.question) {
+                document.getElementById('forgotQuestionText').innerText = `Pergunta: ${recoveryUserFound.question}`;
+                document.getElementById('forgotQuestionBox').classList.remove('hidden');
+            } else {
+                alert("Usuário não encontrado ou sem pergunta cadastrada.");
+            }
+        }
+
+        function handleForgotSubmit(e) {
+            e.preventDefault();
+            const ans = document.getElementById('forgotAnswerInput').value.trim();
+            const newPass = document.getElementById('forgotNewPassword').value.trim();
+
+            if (recoveryUserFound && recoveryUserFound.answer.toLowerCase() === ans.toLowerCase()) {
+                recoveryUserFound.password = newPass;
+                saveDB('users', usersDB);
+                alert("Senha redefinida com sucesso! Faça login com a nova senha.");
+                switchAuthMode('login');
+            } else {
+                alert("Resposta incorreta!");
+            }
+        }
+
+        /* ================= SPA ROUTER ================= */
+        function navigateTo(pageId) {
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+            const target = document.getElementById(`page-${pageId}`);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if (btn.getAttribute('data-page') === pageId) {
+                    btn.classList.add('text-mystic-gold', 'font-bold');
+                } else {
+                    btn.classList.remove('text-mystic-gold', 'font-bold');
+                }
+            });
+
+            if (window.innerWidth < 768) {
+                document.getElementById('sidebar').classList.add('-translate-x-full');
+            }
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+        }
+
+        /* ================= MOOD SELECTOR ================= */
+        function toggleMoodDropdown() {
+            document.getElementById('moodDropdown').classList.toggle('hidden');
+        }
+        function setMood(emoji, text) {
+            document.getElementById('currentMoodEmoji').innerText = emoji;
+            document.getElementById('currentMoodText').innerText = text;
+            toggleMoodDropdown();
+        }
+
+        /* ================= GLOBAL LIVE SEARCH ================= */
+        function handleGlobalSearch(query) {
+            const q = query.toLowerCase().trim();
+            const box = document.getElementById('searchResultsBox');
+            const clearBtn = document.getElementById('clearSearchBtn');
+
+            if (!q) {
+                box.classList.add('hidden');
+                clearBtn.classList.add('hidden');
+                return;
+            }
+
+            clearBtn.classList.remove('hidden');
+            box.classList.remove('hidden');
+
+            let matches = [];
+            postsDB.forEach(p => { if (p.content.toLowerCase().includes(q)) matches.push({ type: 'Post', text: p.content.substring(0, 35) + '...', page: 'feed' }); });
+            blogDB.forEach(b => { if (b.title.toLowerCase().includes(q)) matches.push({ type: 'Blog', text: b.title, page: 'blog' }); });
+            usersDB.forEach(u => { if (u.name.toLowerCase().includes(q) || u.handle.toLowerCase().includes(q)) matches.push({ type: 'Membro', text: u.name, page: 'perfil' }); });
+
+            if (matches.length === 0) {
+                box.innerHTML = '<p class="text-xs text-gray-400 p-2 text-center">Nenhum resultado encontrado.</p>';
+            } else {
+                box.innerHTML = matches.slice(0, 5).map(m => `
+                    <div onclick="navigateTo('${m.page}'); clearSearch();" class="p-2 hover:bg-mystic-800 rounded-lg cursor-pointer text-xs space-y-0.5">
+                        <span class="text-[10px] bg-purple-900 text-purple-200 px-1.5 py-0.2 rounded">${m.type}</span>
+                        <p class="text-gray-200 font-semibold">${m.text}</p>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function clearSearch() {
+            document.getElementById('globalSearchInput').value = '';
+            document.getElementById('searchResultsBox').classList.add('hidden');
+            document.getElementById('clearSearchBtn').classList.add('hidden');
+        }
+
+        /* ================= FEED & STORIES ================= */
+        let tempPostImage = '';
+        function promptPostImage() {
+            const url = prompt("Cole a URL da Imagem:");
+            if (url) {
+                tempPostImage = url;
+                document.getElementById('postImageBadge').innerText = "Imagem Anexada ✓";
+            }
+        }
+
+        function publishFeedPost() {
+            if (!currentUser) return alert("Faça login para publicar!");
+
+            const input = document.getElementById('postContentInput');
+            const alertBox = document.getElementById('postModeratorAlert');
+            const text = input.value.trim();
+
+            if (!text) return;
+
+            if (BANNED_TERMS.some(t => text.toLowerCase().includes(t))) {
+                return alertBox.classList.remove('hidden');
+            }
+            alertBox.classList.add('hidden');
+
+            const newPost = {
+                id: 'post_' + Date.now(),
+                authorId: currentUser.id,
+                authorName: currentUser.name,
+                authorHandle: currentUser.handle,
+                authorAvatar: currentUser.avatar || DEFAULT_CREATOR.avatar,
+                content: text,
+                image: tempPostImage || null,
+                likes: [],
+                comments: []
+            };
+
+            postsDB.unshift(newPost);
+            saveDB('posts', postsDB);
+            input.value = '';
+            tempPostImage = '';
+            document.getElementById('postImageBadge').innerText = "Adicionar Imagem URL";
+            renderFeed();
+        }
+
+        function renderFeed() {
+            const container = document.getElementById('feedTimelineContainer');
+            if (!container) return;
+
+            container.innerHTML = postsDB.map(post => {
+                const isOwner = currentUser && (post.authorId === currentUser.id || currentUser.id === DEFAULT_CREATOR.id);
+                const isLiked = currentUser && post.likes.includes(currentUser.id);
+
+                return `
+                    <div class="glass-panel p-4 sm:p-5 rounded-2xl border border-mystic-gold/20 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <img src="${post.authorAvatar}" class="w-9 h-9 rounded-full object-cover border border-mystic-gold/30">
+                                <div>
+                                    <h4 class="font-bold text-xs sm:text-sm text-gray-200">${post.authorName}</h4>
+                                    <p class="text-[10px] text-purple-300 font-mono">${post.authorHandle}</p>
+                                </div>
+                            </div>
+                            ${isOwner ? `<button onclick="deletePost('${post.id}')" class="text-xs text-gray-500 hover:text-red-400 p-1"><i class="fa-solid fa-trash-can"></i></button>` : ''}
+                        </div>
+
+                        <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">${post.content}</p>
+                        ${post.image ? `<img src="${post.image}" class="w-full max-h-80 object-cover rounded-xl border border-mystic-gold/20">` : ''}
+
+                        <div class="flex items-center justify-between pt-2 border-t border-mystic-gold/10 text-xs text-gray-400">
+                            <button onclick="toggleLikePost('${post.id}')" class="flex items-center space-x-1.5 ${isLiked ? 'text-rose-500 font-bold' : 'hover:text-rose-400'}">
+                                <i class="fa-${isLiked ? 'solid' : 'regular'} fa-heart"></i>
+                                <span>${post.likes.length}</span>
+                            </button>
+                            <button onclick="toggleCommentsBox('${post.id}')" class="flex items-center space-x-1 hover:text-mystic-gold">
+                                <i class="fa-regular fa-comment"></i>
+                                <span>${post.comments.length} Comentários</span>
+                            </button>
+                        </div>
+
+                        <div id="commentsBox-${post.id}" class="hidden space-y-2 pt-2 border-t border-mystic-gold/10 text-xs">
+                            <div class="space-y-1 max-h-36 overflow-y-auto">
+                                ${post.comments.map((c, idx) => `
+                                    <div class="p-2 bg-mystic-950/80 rounded-lg flex justify-between items-center">
+                                        <div><strong class="text-mystic-gold">${c.authorName}:</strong> <span class="text-gray-300">${c.text}</span></div>
+                                        ${isOwner ? `<button onclick="deleteComment('${post.id}', ${idx})" class="text-gray-500 hover:text-red-400 text-[10px]"><i class="fa-solid fa-xmark"></i></button>` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="flex items-center space-x-2 pt-1">
+                                <input type="text" id="commentInput-${post.id}" placeholder="Escreva um comentário..." class="flex-1 bg-mystic-950 border border-mystic-gold/20 rounded-lg p-1.5 text-xs text-gray-200">
+                                <button onclick="addComment('${post.id}')" class="px-3 py-1 bg-mystic-gold text-mystic-950 font-bold rounded-lg text-xs">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            renderStories();
+        }
+
+        function toggleLikePost(id) {
+            if (!currentUser) return alert("Faça login para curtir!");
+            const post = postsDB.find(p => p.id === id);
+            if (!post) return;
+
+            const idx = post.likes.indexOf(currentUser.id);
+            if (idx > -1) post.likes.splice(idx, 1);
+            else post.likes.push(currentUser.id);
+
+            saveDB('posts', postsDB);
+            renderFeed();
+        }
+
+        function toggleCommentsBox(id) {
+            document.getElementById(`commentsBox-${id}`).classList.toggle('hidden');
+        }
+
+        function addComment(id) {
+            if (!currentUser) return alert("Faça login para comentar!");
+            const input = document.getElementById(`commentInput-${id}`);
+            const text = input.value.trim();
+            if (!text) return;
+
+            const post = postsDB.find(p => p.id === id);
+            post.comments.push({ id: 'c_' + Date.now(), authorName: currentUser.name, text });
+            saveDB('posts', postsDB);
+            renderFeed();
+        }
+
+        function deletePost(id) {
+            if (confirm("Excluir publicação?")) {
+                postsDB = postsDB.filter(p => p.id !== id);
+                saveDB('posts', postsDB);
+                renderFeed();
+            }
+        }
+
+        function deleteComment(postId, idx) {
+            const post = postsDB.find(p => p.id === postId);
+            post.comments.splice(idx, 1);
+            saveDB('posts', postsDB);
+            renderFeed();
+        }
+
+        /* STORIES */
+        function openCreateStoryModal() { document.getElementById('createStoryModal').classList.remove('hidden'); }
+        function closeCreateStoryModal() { document.getElementById('createStoryModal').classList.add('hidden'); }
+
+        function publishStory() {
+            if (!currentUser) return alert("Faça login para enviar Story!");
+            const text = document.getElementById('storyTextInput').value.trim();
+            const bg = document.getElementById('storyImageUrlInput').value.trim();
+
+            storiesDB.unshift({ id: 's_' + Date.now(), authorName: currentUser.name, avatar: currentUser.avatar, text, bg });
+            saveDB('stories', storiesDB);
+            closeCreateStoryModal();
+            renderStories();
+        }
+
+        function renderStories() {
+            const container = document.getElementById('storiesListContainer');
+            if (!container) return;
+
+            container.innerHTML = storiesDB.map(s => `
+                <div onclick="alert('Story de ${s.authorName}: ${s.text}')" class="flex flex-col items-center space-y-1 cursor-pointer">
+                    <div class="w-16 h-16 rounded-full p-0.5 bg-gradient-to-tr from-mystic-gold to-purple-600">
+                        <img src="${s.avatar}" class="w-full h-full rounded-full object-cover border-2 border-mystic-950">
+                    </div>
+                    <span class="text-[10px] text-gray-300 max-w-[64px] truncate">${s.authorName}</span>
+                </div>
+            `).join('');
+        }
+
+        /* ================= BLOG ENGINE ================= */
+        function renderBlog() {
+            const grid = document.getElementById('blogArticlesGrid');
+            if (!grid) return;
+
+            grid.innerHTML = blogDB.map(b => `
+                <div class="glass-panel p-5 rounded-2xl border border-mystic-gold/20 space-y-3 flex flex-col justify-between">
+                    <div class="space-y-2">
+                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-purple-900/80 text-purple-200 border border-purple-500/30">Artigo Místico</span>
+                        <h3 class="font-cinzel font-bold text-base text-mystic-gold">${b.title}</h3>
+                        <p class="text-xs text-gray-300 leading-relaxed">${b.summary}</p>
+                    </div>
+                    <div class="flex items-center justify-between text-xs text-gray-400 pt-3 border-t border-mystic-gold/10">
+                        <span>Por <strong>${b.authorName}</strong></span>
+                        ${(currentUser && (b.authorId === currentUser.id || currentUser.id === DEFAULT_CREATOR.id)) ? `
+                            <button onclick="deleteBlog('${b.id}')" class="text-red-400 hover:underline">Excluir Artigo</button>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openNewBlogModal() {
+            if (!currentUser) return alert("Faça login para criar artigos!");
+            const title = prompt("Título do Artigo:");
+            if (!title) return;
+            const summary = prompt("Resumo do Artigo:");
+
+            blogDB.unshift({
+                id: 'b_' + Date.now(),
+                authorId: currentUser.id,
+                authorName: currentUser.name,
+                title, summary: summary || 'Sem resumo.'
+            });
+            saveDB('blog', blogDB);
+            renderBlog();
+        }
+
+        function deleteBlog(id) {
+            if (confirm("Excluir artigo do blog?")) {
+                blogDB = blogDB.filter(b => b.id !== id);
+                saveDB('blog', blogDB);
+                renderBlog();
+            }
+        }
+
+        /* ================= CIGANO & TAROT & LIBRARY CRUD ================= */
+        let activeCrudCategory = ''; // 'cigano' | 'tarot' | 'library'
+
+        function openAddCiganoModal() { activeCrudCategory = 'cigano'; openItemCrudModal('Adicionar Item Cigano'); }
+        function openAddTarotModal() { activeCrudCategory = 'tarot'; openItemCrudModal('Adicionar Item Tarot'); }
+        function openAddLibraryModal() { activeCrudCategory = 'library'; openItemCrudModal('Adicionar Livro/Acervo'); }
+
+        function openItemCrudModal(title) {
+            document.getElementById('itemCrudTitle').innerText = title;
+            document.getElementById('itemCrudModal').classList.remove('hidden');
+        }
+        function closeItemCrudModal() { document.getElementById('itemCrudModal').classList.add('hidden'); }
+
+        function saveItemCrud() {
+            if (!currentUser) return alert("Faça login!");
+            const name = document.getElementById('itemCrudName').value.trim();
+            const subtitle = document.getElementById('itemCrudSubtitle').value.trim();
+            const desc = document.getElementById('itemCrudDesc').value.trim();
+
+            if (!name) return;
+
+            const newItem = { id: 'it_' + Date.now(), userId: currentUser.id, type: 'deck', name, subtitle, desc, title: name, author: subtitle };
+
+            if (activeCrudCategory === 'cigano') ciganoDB.push(newItem), saveDB('cigano', ciganoDB);
+            else if (activeCrudCategory === 'tarot') tarotDB.push(newItem), saveDB('tarot', tarotDB);
+            else if (activeCrudCategory === 'library') libraryDB.push(newItem), saveDB('library', libraryDB);
+
+            closeItemCrudModal();
+            renderCiganoTarotLibrary();
+        }
+
+        function deleteCrudItem(cat, id) {
+            if (confirm("Excluir item?")) {
+                if (cat === 'cigano') ciganoDB = ciganoDB.filter(i => i.id !== id), saveDB('cigano', ciganoDB);
+                if (cat === 'tarot') tarotDB = tarotDB.filter(i => i.id !== id), saveDB('tarot', tarotDB);
+                if (cat === 'library') libraryDB = libraryDB.filter(i => i.id !== id), saveDB('library', libraryDB);
+                renderCiganoTarotLibrary();
+            }
+        }
+
+        function renderCiganoTarotLibrary() {
+            // Cigano Lists
+            document.getElementById('ciganoDecksList').innerHTML = ciganoDB.map(i => `
+                <div class="p-3 bg-mystic-950/80 rounded-xl border border-mystic-gold/20 flex justify-between items-start text-xs">
+                    <div><strong class="text-mystic-gold block">${i.name}</strong><span class="text-gray-400">${i.subtitle || ''}</span></div>
+                    <button onclick="deleteCrudItem('cigano', '${i.id}')" class="text-gray-500 hover:text-red-400"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+            `).join('');
+
+            // Tarot Lists
+            document.getElementById('tarotDecksList').innerHTML = tarotDB.map(i => `
+                <div class="p-3 bg-mystic-950/80 rounded-xl border border-mystic-gold/20 flex justify-between items-start text-xs">
+                    <div><strong class="text-mystic-gold block">${i.name}</strong><span class="text-gray-400">${i.subtitle || ''}</span></div>
+                    <button onclick="deleteCrudItem('tarot', '${i.id}')" class="text-gray-500 hover:text-red-400"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+            `).join('');
+
+            // Library Grid
+            document.getElementById('libraryBooksGrid').innerHTML = libraryDB.map(i => `
+                <div class="bg-mystic-950/80 p-4 rounded-2xl border border-mystic-gold/20 space-y-2 text-xs flex flex-col justify-between">
+                    <div>
+                        <strong class="text-sm text-mystic-gold block">${i.title || i.name}</strong>
+                        <p class="text-gray-400">${i.author || i.subtitle || ''}</p>
+                        <p class="text-gray-300 mt-1">${i.desc || ''}</p>
+                    </div>
+                    <button onclick="deleteCrudItem('library', '${i.id}')" class="py-1 text-red-400 hover:underline text-[11px] text-right">Excluir</button>
+                </div>
+            `).join('');
+        }
+
+        /* ================= DIÁRIO MÍSTICO ================= */
+        function applyDiaryFont(f) { document.getElementById('diaryBodyInput').className = document.getElementById('diaryBodyInput').className.replace(/font-\w+/g, '') + ' ' + f; }
+        function applyDiarySize(s) { document.getElementById('diaryBodyInput').className = document.getElementById('diaryBodyInput').className.replace(/text-\w+/g, '') + ' ' + s; }
+        function insertDiarySymbol(s) { document.getElementById('diaryBodyInput').value += ' ' + s + ' '; }
+
+        function saveDiaryEntry() {
+            if (!currentUser) return alert("Faça login para salvar o diário!");
+
+            const title = document.getElementById('diaryTitleInput').value.trim() || 'Anotação Mística';
+            const media = document.getElementById('diaryMediaUrlInput').value.trim();
+            const body = document.getElementById('diaryBodyInput').value.trim();
+
+            if (!body) return alert("Escreva um texto!");
+
+            diaryDB.unshift({
+                id: 'd_' + Date.now(),
+                userId: currentUser.id,
+                title, media, body,
+                date: new Date().toLocaleDateString('pt-BR')
+            });
+
+            saveDB('diary', diaryDB);
+            document.getElementById('diaryTitleInput').value = '';
+            document.getElementById('diaryMediaUrlInput').value = '';
+            document.getElementById('diaryBodyInput').value = '';
+            renderDiaryEntries();
+        }
+
+        function renderDiaryEntries() {
+            const container = document.getElementById('savedDiaryEntriesContainer');
+            if (!container) return;
+
+            const userEntries = currentUser ? diaryDB.filter(d => d.userId === currentUser.id) : [];
+
+            if (userEntries.length === 0) {
+                container.innerHTML = '<p class="text-xs text-gray-400 italic">Nenhum diário salvo ainda.</p>';
+                return;
+            }
+
+            container.innerHTML = userEntries.map(d => `
+                <div class="p-3 bg-mystic-950/90 rounded-xl border border-mystic-gold/15 space-y-1 text-xs">
+                    <div class="flex items-center justify-between border-b border-mystic-gold/10 pb-1">
+                        <span class="font-bold text-mystic-gold">${d.title}</span>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[10px] text-gray-400">${d.date}</span>
+                            <button onclick="deleteDiary('${d.id}')" class="text-gray-500 hover:text-red-400"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed pt-1">${d.body}</p>
+                    ${d.media ? `<img src="${d.media}" class="w-full max-h-48 object-cover rounded-lg border border-mystic-gold/20 mt-2">` : ''}
+                </div>
+            `).join('');
+        }
+
+        function deleteDiary(id) {
+            if (confirm("Excluir esta anotação?")) {
+                diaryDB = diaryDB.filter(d => d.id !== id);
+                saveDB('diary', diaryDB);
+                renderDiaryEntries();
+            }
+        }
+
+        /* ================= SERVIÇOS ================= */
+        function contactCreator(serv) {
+            navigateTo('contato');
+            alert(`Desejo agendar: ${serv}`);
+        }
+
+        function addUserService() {
+            if (!currentUser) return alert("Faça login!");
+            const title = document.getElementById('userServiceTitleInput').value.trim();
+            const price = document.getElementById('userServicePriceInput').value.trim();
+            const desc = document.getElementById('userServiceDescInput').value.trim();
+
+            if (!title) return;
+
+            servicesDB.push({
+                id: 'srv_' + Date.now(),
+                userId: currentUser.id,
+                authorName: currentUser.name,
+                title, price: price || 'A combinar', desc
+            });
+
+            saveDB('services', servicesDB);
+            renderServices();
+        }
+
+        function renderServices() {
+            const grid = document.getElementById('communityServicesGrid');
+            if (!grid) return;
+
+            grid.innerHTML = servicesDB.map(s => `
+                <div class="bg-mystic-950/80 p-4 rounded-2xl border border-mystic-gold/20 space-y-2 text-xs flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center">
+                            <strong class="text-mystic-gold">${s.title}</strong>
+                            <span class="text-[10px] bg-purple-900 text-purple-200 px-2 py-0.5 rounded-full">${s.price}</span>
+                        </div>
+                        <p class="text-gray-300 mt-1">${s.desc}</p>
+                        <p class="text-[10px] text-gray-400 mt-2">Por: ${s.authorName}</p>
+                    </div>
+                    <button onclick="navigateTo('mensagens')" class="mt-2 py-1.5 bg-mystic-gold/20 text-mystic-gold font-bold rounded-lg hover:bg-mystic-gold hover:text-mystic-950 transition">Conversar</button>
+                </div>
+            `).join('');
+        }
+
+        /* ================= CHAT MENSAGENS ================= */
+        let activeChatUserId = 'creator_master';
+
+        function renderChats() {
+            const container = document.getElementById('chatContactsContainer');
+            if (!container) return;
+
+            container.innerHTML = usersDB.map(u => `
+                <div onclick="selectChatUser('${u.id}')" class="p-3 hover:bg-mystic-800 cursor-pointer flex items-center space-x-3 transition">
+                    <img src="${u.avatar || DEFAULT_CREATOR.avatar}" class="w-8 h-8 rounded-full object-cover border border-mystic-gold/30">
+                    <div>
+                        <h5 class="font-bold text-xs text-gray-200">${u.name}</h5>
+                        <p class="text-[10px] text-purple-300 font-mono">${u.handle}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            renderActiveMessages();
+        }
+
+        function selectChatUser(id) {
+            activeChatUserId = id;
+            const target = usersDB.find(u => u.id === id);
+            if (target) {
+                document.getElementById('chatActiveName').innerText = target.name;
+                document.getElementById('chatActiveAvatar').src = target.avatar || DEFAULT_CREATOR.avatar;
+            }
+            renderActiveMessages();
+        }
+
+        function sendChatMessage() {
+            if (!currentUser) return alert("Faça login para enviar mensagens!");
+            const input = document.getElementById('chatInputText');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const chatKey = [currentUser.id, activeChatUserId].sort().join('_');
+            if (!chatsDB[chatKey]) chatsDB[chatKey] = [];
+
+            chatsDB[chatKey].push({
+                senderId: currentUser.id,
+                text, time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+            });
+
+            saveDB('chats', chatsDB);
+            input.value = '';
+            renderActiveMessages();
+        }
+
+        function renderActiveMessages() {
+            const box = document.getElementById('chatMessagesBox');
+            if (!box || !currentUser) return;
+
+            const chatKey = [currentUser.id, activeChatUserId].sort().join('_');
+            const msgs = chatsDB[chatKey] || [];
+
+            box.innerHTML = msgs.map(m => {
+                const isMe = m.senderId === currentUser.id;
+                return `
+                    <div class="flex ${isMe ? 'justify-end' : 'justify-start'}">
+                        <div class="${isMe ? 'bg-mystic-700 text-gray-100' : 'bg-mystic-900 border border-mystic-gold/20 text-gray-200'} p-2.5 rounded-2xl max-w-xs text-xs space-y-0.5 shadow-lg">
+                            <p>${m.text}</p>
+                            <span class="text-[9px] text-gray-400 block text-right">${m.time}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function changeChatTheme(themeClass) {
+            const box = document.getElementById('chatMessagesBox');
+            box.className = `flex-1 p-4 overflow-y-auto space-y-3 ${themeClass}`;
+        }
+
+        function renameActiveContact() {
+            const newName = prompt("Novo apelido para este contato:");
+            if (newName) document.getElementById('chatActiveName').innerText = newName;
+        }
+
+        function clearActiveConversation() {
+            if (confirm("Apagar todas as mensagens desta conversa?")) {
+                const chatKey = [currentUser.id, activeChatUserId].sort().join('_');
+                chatsDB[chatKey] = [];
+                saveDB('chats', chatsDB);
+                renderActiveMessages();
+            }
+        }
+
+        function toggleBlockContact() {
+            alert("Contato bloqueado/desbloqueado no seu filtro pessoal.");
+        }
+
+        /* ================= USER PROFILE ================= */
+        function renderUserProfile() {
+            if (!currentUser) return;
+
+            document.getElementById('profileNameDisplay').innerText = currentUser.name;
+            document.getElementById('profileHandleDisplay').innerText = currentUser.handle;
+            document.getElementById('profileBioDisplay').innerText = currentUser.bio;
+            document.getElementById('profileAvatarDisplay').src = currentUser.avatar || DEFAULT_CREATOR.avatar;
+            document.getElementById('profileBannerDisplay').style.backgroundImage = `url('${currentUser.banner || DEFAULT_CREATOR.banner}')`;
+
+            document.getElementById('profileMoviesDisplay').innerText = currentUser.movies || 'Não informado';
+            document.getElementById('profileSeriesDisplay').innerText = currentUser.series || 'Não informado';
+            document.getElementById('profileAppsDisplay').innerText = currentUser.apps || 'Não informado';
+
+            // User Profile Posts
+            const myPosts = postsDB.filter(p => p.authorId === currentUser.id);
+            document.getElementById('userProfilePostsContainer').innerHTML = myPosts.map(p => `
+                <div class="glass-panel p-4 rounded-2xl border border-mystic-gold/20 text-xs">
+                    <p class="text-gray-200">${p.content}</p>
+                </div>
+            `).join('') || '<p class="text-xs text-gray-400 text-center py-4">Nenhuma publicação ainda.</p>';
+        }
+
+        function openEditProfileModal() {
+            if (!currentUser) return alert("Faça login!");
+            document.getElementById('editProfileName').value = currentUser.name || '';
+            document.getElementById('editProfileAvatar').value = currentUser.avatar || '';
+            document.getElementById('editProfileBanner').value = currentUser.banner || '';
+            document.getElementById('editProfileBio').value = currentUser.bio || '';
+            document.getElementById('editProfileMovies').value = currentUser.movies || '';
+            document.getElementById('editProfileSeries').value = currentUser.series || '';
+            document.getElementById('editProfileApps').value = currentUser.apps || '';
+            document.getElementById('editProfileModal').classList.remove('hidden');
+        }
+
+        function closeEditProfileModal() { document.getElementById('editProfileModal').classList.add('hidden'); }
+
+        function saveUserProfileData() {
+            if (!currentUser) return;
+            currentUser.name = document.getElementById('editProfileName').value.trim();
+            currentUser.avatar = document.getElementById('editProfileAvatar').value.trim();
+            currentUser.banner = document.getElementById('editProfileBanner').value.trim();
+            currentUser.bio = document.getElementById('editProfileBio').value.trim();
+            currentUser.movies = document.getElementById('editProfileMovies').value.trim();
+            currentUser.series = document.getElementById('editProfileSeries').value.trim();
+            currentUser.apps = document.getElementById('editProfileApps').value.trim();
+
+            const idx = usersDB.findIndex(u => u.id === currentUser.id);
+            if (idx > -1) usersDB[idx] = currentUser;
+
+            saveDB('users', usersDB);
+            saveDB('session', currentUser);
+            updateSessionUI();
+            closeEditProfileModal();
+        }
+
+        function switchProfileTab(tab) {
+            document.getElementById('pTab-posts').classList.add('hidden');
+            document.getElementById('pTab-servicos').classList.add('hidden');
+            document.getElementById('pTab-favoritos').classList.add('hidden');
+
+            document.getElementById(`pTab-${tab}`).classList.remove('hidden');
+        }
+
+        /* CARD OF THE DAY FLIP */
+        const CARDS = [
+            { name: "O Sol", icon: "☀️", desc: "Clareza, alegria e sorte em seus projetos." },
+            { name: "A Lua", icon: "🌙", desc: "Intuição afiada e revelações em sonhos." },
+            { name: "Os Pássaros", icon: "🕊️", desc: "Diálogos fluidos e encontros produtivos." },
+            { name: "A Estrela", icon: "⭐", desc: "Esperança e alinhamento espiritual." }
+        ];
+
+        function revealCardOfDay() {
+            const container = document.getElementById('cardOfDayContainer');
+            const c = CARDS[Math.floor(Math.random() * CARDS.length)];
+
+            document.getElementById('cardOfDayIcon').innerText = c.icon;
+            document.getElementById('cardOfDayTitle').innerText = c.name;
+            document.getElementById('cardOfDayDesc').innerText = c.desc;
+
+            container.classList.toggle('flipped');
+        }
+
+        /* INITIAL LOAD ON PAGE START */
+        window.onload = function() {
+            updateSessionUI();
+            renderFeed();
+            renderBlog();
+            renderCiganoTarotLibrary();
+            renderDiaryEntries();
+            renderServices();
+            renderChats();
+            navigateTo('home');
+        };
+    </script>
+</body>
+</html>
